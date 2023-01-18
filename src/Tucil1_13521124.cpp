@@ -245,27 +245,6 @@ int main(){
                                                     }
                                                 }
                                         }
-
-                                        /* FIFTH COMBINATION
-                                        if(validCalculation(num[k], num[l], operators[thirdIdx]) &&
-                                            validCalculation(num[j], calTwoNumber(num[k], num[l], operators[thirdIdx]), operators[thirdIdx]) &&
-                                            validCalculation(num[i], calTwoNumber(num[j], calTwoNumber(num[k], num[l], operators[thirdIdx]), operators[secondIdx]), operators[firstIdx])) {
-                                                int cal = calTwoNumber( num[i], 
-                                                                        calTwoNumber(   num[j],
-                                                                                        calTwoNumber(num[k], num[l], operators[thirdIdx]), 
-                                                                                        operators[secondIdx]
-                                                                                    ),
-                                                                        operators[firstIdx]
-                                                            );
-                                                if(cal == 24){
-                                                    count++;
-                                                    answer = to_string(num[i]) + " " +
-                                                                        operators[firstIdx] + " (" + to_string(num[j]) + " " +
-                                                                        operators[secondIdx] + " (" + to_string(num[k]) + " " +
-                                                                        operators[thirdIdx] + " " + to_string(num[l]) + "))";
-                                                    ans.push_back(answer);
-                                                }  
-                                        } */     
                                     } else {
                                         continue;
                                     }
