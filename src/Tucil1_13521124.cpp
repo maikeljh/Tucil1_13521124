@@ -1,4 +1,7 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <string.h>
+#include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -284,7 +287,7 @@ int main(){
                     if(file){
                         printf("\nFile already exist! Please input a new name file!\n");
                     } else {
-                        outdata.open(nameFile);
+                        outdata.open("../output/" + nameFile);
                         if(count != 0){
                             outdata << count << " solutions found" << endl;
                             for(int i = 0; i < ans.size(); i++){
