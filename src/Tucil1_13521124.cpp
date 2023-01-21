@@ -2,6 +2,7 @@
 #include <string.h>
 #include <vector>
 #include <fstream>
+#include <ctime>
 
 using namespace std;
 
@@ -45,6 +46,17 @@ bool validCalculation(double a, double b, char x){
     }
 
     return true;
+}
+
+bool find(vector<string> list, string s){
+    bool exist = false;
+    for(string item : list){
+        if(item == s){
+            exist = true;
+            break;
+        }
+    }
+    return exist;
 }
 
 int main(){
@@ -172,7 +184,7 @@ int main(){
                                                                         operators[firstIdx] + " " + to_string(num[j]) + ") " +
                                                                         operators[secondIdx] + " " + to_string(num[k]) + ") " +
                                                                         operators[thirdIdx] + " " + to_string(num[l]);
-                                                    if(find(ans.begin(), ans.end(), answer) == ans.end()){
+                                                    if(!find(ans, answer)){
                                                         count++;
                                                         ans.push_back(answer);
                                                     }
@@ -195,7 +207,7 @@ int main(){
                                                                         operators[firstIdx] + " " + to_string(num[j]) + ") " +
                                                                         operators[secondIdx] + " (" + to_string(num[k]) + " " +
                                                                         operators[thirdIdx] + " " + to_string(num[l]) + ")";
-                                                    if(find(ans.begin(), ans.end(), answer) == ans.end()){
+                                                    if(!find(ans, answer)){
                                                         count++;
                                                         ans.push_back(answer);
                                                     }
@@ -218,7 +230,7 @@ int main(){
                                                                         operators[firstIdx] + " (" + to_string(num[j]) + " " +
                                                                         operators[secondIdx] + " " + to_string(num[k]) + ")) " +
                                                                         operators[thirdIdx] + " " + to_string(num[l]);
-                                                    if(find(ans.begin(), ans.end(), answer) == ans.end()){
+                                                    if(!find(ans, answer)){
                                                         count++;
                                                         ans.push_back(answer);
                                                     }
@@ -242,12 +254,33 @@ int main(){
                                                                         operators[firstIdx] + " ((" + to_string(num[j]) + " " +
                                                                         operators[secondIdx] + " " + to_string(num[k]) + ") " +
                                                                         operators[thirdIdx] + " " + to_string(num[l]) + ")";
-                                                    if(find(ans.begin(), ans.end(), answer) == ans.end()){
+                                                    if(!find(ans, answer)){
                                                         count++;
                                                         ans.push_back(answer);
                                                     }
                                                 }
                                         }
+
+                                        // FIFTH COMBINATION
+                                        if(validCalculation(num[k], num[l], operators[thirdIdx]) &&
+                                            validCalculation(num[j], calTwoNumber(num[k], num[l], operators[thirdIdx]), operators[thirdIdx]) &&
+                                            validCalculation(num[i], calTwoNumber(num[j], calTwoNumber(num[k], num[l], operators[thirdIdx]), operators[secondIdx]), operators[firstIdx])) {
+                                                int cal = calTwoNumber( num[i], 
+                                                                        calTwoNumber(   num[j],
+                                                                                        calTwoNumber(num[k], num[l], operators[thirdIdx]), 
+                                                                                        operators[secondIdx]
+                                                                                    ),
+                                                                        operators[firstIdx]
+                                                            );
+                                                if(cal == 24){
+                                                    count++;
+                                                    answer = to_string(num[i]) + " " +
+                                                                        operators[firstIdx] + " (" + to_string(num[j]) + " " +
+                                                                        operators[secondIdx] + " (" + to_string(num[k]) + " " +
+                                                                        operators[thirdIdx] + " " + to_string(num[l]) + "))";
+                                                    ans.push_back(answer);
+                                                } 
+                                        } 
                                     } else {
                                         continue;
                                     }
@@ -287,7 +320,7 @@ int main(){
                     if(file){
                         printf("\nFile already exist! Please input a new name file!\n");
                     } else {
-                        outdata.open("../output/" + nameFile);
+                        outdata.open("../test/" + nameFile);
                         if(count != 0){
                             outdata << count << " solutions found" << endl;
                             for(int i = 0; i < ans.size(); i++){
