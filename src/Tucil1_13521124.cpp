@@ -37,6 +37,8 @@ double calTwoNumber(double a, double b, char x) {
         double aTemp = a;
         double bTemp = b;
         return aTemp / bTemp;
+    } else {
+        return 0;
     }
 }
 
@@ -54,8 +56,8 @@ bool validCalculation(double a, double b, char x){
 bool find(vector<string> list, string s){
     // Fungsi untuk menentukan apakah string s ada pada list atau tidak
     bool exist = false;
-    for(string item : list){
-        if(item == s){
+    for(int i = 0; i < list.size(); i++){
+        if(list[i] == s){
             exist = true;
             break;
         }
@@ -378,7 +380,7 @@ int main(){
                                                              operators[firstIdx]
                                                              )
                                             ) {
-                                                int cal = calTwoNumber(num[i], 
+                                                double cal = calTwoNumber(num[i], 
                                                                        calTwoNumber(num[j],
                                                                                     calTwoNumber(num[k], num[l], operators[thirdIdx]), 
                                                                                     operators[secondIdx]
@@ -386,12 +388,14 @@ int main(){
                                                                        operators[firstIdx]
                                                             );
                                                 if(cal == 24){
-                                                    count++;
                                                     answer = to_string(num[i]) + " " +
                                                             operators[firstIdx] + " (" + to_string(num[j]) + " " +
                                                             operators[secondIdx] + " (" + to_string(num[k]) + " " +
                                                             operators[thirdIdx] + " " + to_string(num[l]) + "))";
-                                                    ans.push_back(answer);
+                                                    if(!find(ans, answer)){
+                                                        count++;
+                                                        ans.push_back(answer);
+                                                    }
                                                 } 
                                         } 
                                     } else {
@@ -431,7 +435,7 @@ int main(){
                     printf("\nPlease input new name file : ");
                     cin >> nameFile;
                     nameFile += ".txt";
-                    file.open(nameFile);
+                    file.open("../test/" + nameFile);
                     if(file){
                         printf("\nFile already exist! Please input a new name file!\n");
                     } else {
