@@ -435,11 +435,11 @@ int main(){
                     printf("\nPlease input new name file : ");
                     cin >> nameFile;
                     nameFile += ".txt";
-                    file.open("../test/" + nameFile);
+                    file.open("./test/" + nameFile);
                     if(file){
                         printf("\nFile already exist! Please input a new name file!\n");
                     } else {
-                        outdata.open("../test/" + nameFile);
+                        outdata.open("./test/" + nameFile);
                         if(count != 0){
                             outdata << count << " solutions found" << endl;
                             for(int i = 0; i < ans.size(); i++){
