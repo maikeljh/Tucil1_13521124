@@ -10,7 +10,7 @@ int converterInput(string x){
     // Fungsi untuk mengkonversi input kartu dari user
     if(x == "A"){
         return 1;
-    } else if(x.length() == 1 && x[0] - '0' > 0 && x[0] - '0' < 11){
+    } else if(x.length() == 1 && x[0] - '0' > 1 && x[0] - '0' < 11){
         return stoi(x);
     } else if(x == "10"){
         return 10;
