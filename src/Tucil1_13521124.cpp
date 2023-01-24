@@ -471,7 +471,7 @@ int main(){
         }
 
         // TIME EXECUTION
-        cout << "Total time required = " << (double)timeConsumed << " ms" << endl;
+        cout << "Total time required = " << (double)timeConsumed/CLOCKS_PER_SEC << " seconds" << endl;
 
         // OPTION TO SAVE FILE
         while(true){
@@ -481,13 +481,13 @@ int main(){
                 string nameFile;
                 while(true){
                     printf("\nPlease input new name file : ");
-                    getline(cin >> ws, action);
+                    getline(cin >> ws, nameFile);
                     nameFile += ".txt";
-                    file.open("../test/" + nameFile);
+                    file.open("./test/" + nameFile);
                     if(file){
                         printf("\nFile already exist! Please input a new name file!\n");
                     } else {
-                        outdata.open("../test/" + nameFile);
+                        outdata.open("./test/" + nameFile);
                         if(count != 0){
                             outdata << count << " solutions found" << endl;
                             for(int i = 0; i < ans.size(); i++){
@@ -496,7 +496,7 @@ int main(){
                         } else {
                             outdata << "Tidak ada solusi" << endl;
                         }
-                        outdata << "Total time required = " << (double)timeConsumed << " ms" << endl;
+                        outdata << "Total time required = " << (double)timeConsumed/CLOCKS_PER_SEC << " seconds" << endl;
                         outdata.close();
                         cout << "\nFile " << nameFile << " has been created" << endl;
                         break;
