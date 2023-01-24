@@ -65,10 +65,51 @@ bool find(vector<string> list, string s){
     return exist;
 }
 
+bool validInputCard(string s){
+    // Fungsi untuk memeriksa apakah input kartu valid atau tidak
+    int count = 0;
+    for(int i = 0; i < s.length(); i++){
+        if(s[i] == ' '){
+            count++;
+        }
+    }
+    if(count == 3){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void processCard(string s, string *a, string *b, string *c, string *d){
+    // Fungsi untuk memroses kartu yang diinput
+    string temp = "";
+    int i = 0;
+    int count = 0;
+    string collection[4];
+    while(i != s.length()){
+        if(i == s.length() - 1){
+            temp += s[i];
+            collection[count] = temp;
+        } else if(s[i] == ' '){
+            collection[count] = temp;
+            temp = "";
+            count++;
+        } else {
+            temp += s[i];
+        }
+        i++;
+    }
+    *a = collection[0];
+    *b = collection[1];
+    *c = collection[2];
+    *d = collection[3];
+}
+
 int main(){
     // DECLARATION VARIABLES
     string action;
     string a, b, c, d;
+    string inp;
     int firstNumber, secondNumber, thirdNumber, fourthNumber;
     time_t start, ending;
     bool done = false;
@@ -113,15 +154,19 @@ int main(){
             printf("2. Generate input\n");
             printf("3. Exit\n");
             printf("Choose (1, 2, or 3) : ");
-            cin >> action;
+            getline(cin >> ws, action);
 
             if(action == "1"){
                 // INSTRUCTION
                 printf("\nYour cards (ex: A 10 Q J): ");
 
                 // INPUT
-                cin >> a >> b >> c >> d;
+                getline(cin >> ws, inp);
 
+                if(validInputCard(inp)){
+                    processCard(inp, &a, &b, &c, &d);
+                }
+                
                 // CONVERT INPUT TO INTEGER
                 firstNumber = converterInput(a);
                 secondNumber = converterInput(b);
@@ -131,8 +176,11 @@ int main(){
                 // VALIDATION
                 while(firstNumber == -1 || secondNumber == -1 || thirdNumber == -1 || fourthNumber == -1){
                     cout << "ERROR! Please input the right form!" << endl;
-                    printf("\nYour cards (ex = A 10 Q J): ");
-                    cin >> a >> b >> c >> d;
+                    printf("\nYour cards (ex : A 10 Q J): ");
+                    getline(cin >> ws, inp);
+                    if(validInputCard(inp)){
+                        processCard(inp, &a, &b, &c, &d);
+                    }
                     firstNumber = converterInput(a);
                     secondNumber = converterInput(b);
                     thirdNumber = converterInput(c);
@@ -423,23 +471,23 @@ int main(){
         }
 
         // TIME EXECUTION
-        cout << "Total time required = " << (double)timeConsumed/CLOCKS_PER_SEC << " seconds" << endl;
+        cout << "Total time required = " << (double)timeConsumed << " ms" << endl;
 
         // OPTION TO SAVE FILE
         while(true){
             printf("\nDo you want to save the answer? (y/n) : ");
-            cin >> action;
+            getline(cin >> ws, action);
             if(action == "y"){
                 string nameFile;
                 while(true){
                     printf("\nPlease input new name file : ");
-                    cin >> nameFile;
+                    getline(cin >> ws, action);
                     nameFile += ".txt";
-                    file.open("./test/" + nameFile);
+                    file.open("../test/" + nameFile);
                     if(file){
                         printf("\nFile already exist! Please input a new name file!\n");
                     } else {
-                        outdata.open("./test/" + nameFile);
+                        outdata.open("../test/" + nameFile);
                         if(count != 0){
                             outdata << count << " solutions found" << endl;
                             for(int i = 0; i < ans.size(); i++){
@@ -448,7 +496,7 @@ int main(){
                         } else {
                             outdata << "Tidak ada solusi" << endl;
                         }
-                        outdata << "Total time required = " << (double)timeConsumed/CLOCKS_PER_SEC << " seconds" << endl;
+                        outdata << "Total time required = " << (double)timeConsumed << " ms" << endl;
                         outdata.close();
                         cout << "\nFile " << nameFile << " has been created" << endl;
                         break;
@@ -465,7 +513,7 @@ int main(){
         // OPTION TO PLAY AGAIN OR EXIT
         while(true){
             printf("\nDo you want to play again? (y/n) : ");
-            cin >> action;
+            getline(cin >> ws, action);
             if(action == "y"){
                 break;
             } else if (action == "n"){
